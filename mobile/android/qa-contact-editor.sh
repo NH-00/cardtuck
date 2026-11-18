@@ -7,7 +7,7 @@ finish() {
   result=$?
   if [[ "$result" != 0 ]]; then
     tail -20 "$tmp/emulator.log" 2>/dev/null || true
-    adb -s emulator-5560 logcat -d -s AndroidRuntime 2>/dev/null | tail -35 || true
+    timeout 8s adb -s emulator-5560 logcat -d -s AndroidRuntime 2>/dev/null | tail -35 || true
     if [[ -s "$tmp/editor.xml" ]]; then
       python3 -c 'import sys,xml.etree.ElementTree as E; r=E.parse(sys.argv[1]); print([(n.get("text"),n.get("content-desc")) for n in r.iter("node") if n.get("text") or n.get("content-desc")])' "$tmp/editor.xml" || true
     fi
@@ -21,7 +21,7 @@ trap finish EXIT
 emulator -avd CardTuckTest -port 5560 -no-window -no-boot-anim -no-audio -no-snapshot -gpu swiftshader_indirect \
   -camera-back none -camera-front none -no-metrics > "$tmp/emulator.log" 2>&1 &
 emulator_pid=$!
-droid() { adb -s emulator-5560 "$@"; }
+droid() { timeout 15s adb -s emulator-5560 "$@"; }
 
 export CARDTUCK_ANDROID_KEYSTORE="$tmp/qa-signing.p12"
 export CARDTUCK_ANDROID_KEYSTORE_PASSWORD="$(openssl rand -hex 24)"
@@ -35,10 +35,11 @@ if "$ANDROID_HOME/build-tools/35.0.1/aapt2" dump permissions "$tmp/cardtuck.apk"
 fi
 
 ready=""
-for attempt in {1..75}; do
+for attempt in {1..45}; do
   if ! kill -0 "$emulator_pid" 2>/dev/null; then exit 1; fi
   ready="$(droid shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || true)"
   if [[ "$ready" = 1 ]]; then break; fi
+  if (( attempt % 10 == 0 )); then printf 'Waiting for Android boot (%s checks)\n' "$attempt"; fi
   sleep 4
 done
 [[ "$ready" = 1 ]]
