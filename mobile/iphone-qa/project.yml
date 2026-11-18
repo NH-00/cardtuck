@@ -1,0 +1,42 @@
+name: CardTuckPhoneQA
+options:
+  deploymentTarget:
+    iOS: "18.0"
+configs:
+  Debug: debug
+targets:
+  CardTuckPhoneQA:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+      - path: ../../public/mobile/CardTuck Add Contact.shortcut
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.cardtuck.phone.qa
+    info:
+      path: App/GeneratedInfo.plist
+      properties:
+        CFBundleDisplayName: CardTuck QA
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+        UILaunchScreen: {}
+  CardTuckPhoneQATests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [Tests]
+    dependencies:
+      - target: CardTuckPhoneQA
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.cardtuck.phone.qa.tests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  CardTuckPhoneQA:
+    build:
+      targets:
+        CardTuckPhoneQA: all
+    test:
+      targets:
+        - CardTuckPhoneQATests
