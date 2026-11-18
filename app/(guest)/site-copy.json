@@ -1,0 +1,72 @@
+{
+  "demoTitle": "Try a sample export.",
+  "demoCopy": "Edit a fictional contact and download a vCard. No account needed.",
+  "steps": [
+    {
+      "label": "Scan",
+      "title": "Start with a card photo.",
+      "description": "Open Maya’s sample card to see the contact details CardTuck pulls from a photo.",
+      "action": "Review sample card"
+    },
+    {
+      "label": "Review",
+      "title": "Check the details.",
+      "description": "Edit a field or keep the details as shown. Your edits carry through to the contact file.",
+      "action": "Save sample contact"
+    },
+    {
+      "label": "Save",
+      "title": "Take the contact with you.",
+      "description": "Download a vCard you can open in a compatible contacts app.",
+      "action": "Download contact"
+    }
+  ],
+  "features": {
+    "review": {
+      "title": "Check it against the card.",
+      "description": "Catch a typo or fix a number while you still have the card in front of you. Save only when the details look right."
+    },
+    "batch": {
+      "title": "Clear the whole stack.",
+      "description": "Upload a stack of cards after an event. Match the sides, then work through the contacts in the order you choose."
+    }
+  },
+  "questions": [
+    {
+      "question": "Do I need to install an app?",
+      "answer": "CardTuck runs in your browser. Use the camera when your browser allows it, upload a photo, or enter the details by hand."
+    },
+    {
+      "question": "Can I scan the back of a card too?",
+      "answer": "Yes. Capture or upload the back if it has details you need. When you upload several cards, you can pair each front with its matching back."
+    },
+    {
+      "question": "How do I sign in?",
+      "answer": "Enter your email address and follow the sign-in link CardTuck sends you."
+    }
+  ],
+  "guideTitle": "How to scan business cards",
+  "guideIntro": "Start with a clear photo, check what CardTuck reads, and save the details where you’ll use them.",
+  "guide": [
+    {
+      "id": "photograph",
+      "title": "Photograph the whole card",
+      "copy": "Set the card on a flat surface in even light. Keep all four corners in the frame and shift the angle if glossy paper catches glare. Use the camera in CardTuck or upload an existing photo."
+    },
+    {
+      "id": "pair",
+      "title": "Pair the front and back",
+      "copy": "Add a photo of the back if it carries useful details. If you upload a batch, pair each front with its matching back and put the cards in the order you want to review them."
+    },
+    {
+      "id": "review",
+      "title": "Review before you save",
+      "copy": "Look closely at names, email addresses, and digits in phone numbers. Correct any fields and add a tag if it will help you find the contact later. You can also enter a contact by hand."
+    },
+    {
+      "id": "export",
+      "title": "Move contacts to your address book",
+      "copy": "Export a vCard to open in a compatible contacts app. To use CardDAV, connect your address book in CardTuck, select the destination address book, and sync the contact."
+    }
+  ]
+}

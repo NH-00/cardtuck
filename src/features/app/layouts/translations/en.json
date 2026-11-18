@@ -1,0 +1,16 @@
+{
+  "tabs": {
+    "scanner": "Scan",
+    "contacts": "Contacts"
+  },
+  "header": {
+    "sign_out": "Sign out",
+    "account": "Account",
+    "address_books": "Address books"
+  },
+  "address_books": {
+    "title": "Address books",
+    "description": "Choose where you want to send contacts.",
+    "back": "Back to app"
+  }
+}

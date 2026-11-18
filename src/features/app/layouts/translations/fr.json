@@ -1,0 +1,16 @@
+{
+  "tabs": {
+    "scanner": "Scanner",
+    "contacts": "Contacts"
+  },
+  "header": {
+    "sign_out": "Se déconnecter",
+    "account": "Compte",
+    "address_books": "Carnets d’adresses"
+  },
+  "address_books": {
+    "title": "Carnets d’adresses",
+    "description": "Choisissez où envoyer les contacts.",
+    "back": "Retour à l’application"
+  }
+}

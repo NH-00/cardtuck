@@ -1,0 +1,64 @@
+{
+  "emails": {
+    "magic-link": {
+      "subject": "Votre lien de connexion CardTuck",
+      "preview": "Connectez-vous à votre compte",
+      "heading": "Votre lien de connexion",
+      "greeting": "Voici votre lien de connexion.",
+      "waitingConfirmation": "Utilisez ce lien pour vous connecter à CardTuck. Il expire dans {minutes} minutes.",
+      "buttonLabel": "Me connecter",
+      "fallbackLink": "Si le bouton ne fonctionne pas, copiez ce lien :",
+      "closing": "Si vous n'avez pas demandé ce lien, vous pouvez ignorer cet e-mail.",
+      "teamPrefix": "L’équipe CardTuck"
+    }
+  },
+  "login": {
+    "title": "Connexion",
+    "description": "Utilisez votre adresse e-mail pour recevoir un lien.",
+    "email_placeholder": "Adresse mail",
+    "submit": "Envoyer le lien de connexion",
+    "emergency_trigger": "Un problème de connexion ?",
+    "error_only_employees": "Adresse mail non autorisée."
+  },
+  "emergency": {
+    "title": "Accès d'urgence",
+    "description": "Entrez votre adresse mail pour recevoir un lien de connexion.",
+    "submit": "Envoyer le lien",
+    "back": "Retour à la connexion"
+  },
+  "waiting": {
+    "title_standard": "Vérifiez votre boîte mail,",
+    "title_emergency": "Vérifiez vos accès,",
+    "description_standard": "nous venons d'envoyer un lien de connexion à {email}.",
+    "description_emergency": "nous venons de générer un lien de récupération pour {email}.",
+    "help_standard": "Vous n'avez rien reçu ? Vérifiez vos spams ou demandez un nouveau lien.",
+    "help_emergency": "Si vous ne voyez pas le lien, demandez-en un nouveau.",
+    "resend": "Renvoyer le lien",
+    "resend_countdown": "Renvoyer ({seconds}s)",
+    "change_email": "Utiliser une autre adresse mail",
+    "open_email_client": "Ouvrir ma boîte mail",
+    "open_mailpit": "Ouvrir Mailpit"
+  },
+  "toast": {
+    "check_email": "Vérifiez vos e-mails pour le lien de connexion",
+    "check_console": "Vérifiez vos accès pour le lien d'urgence",
+    "error_generic": "Une erreur est survenue"
+  },
+  "schema": {
+    "invalid_email": "Adresse mail invalide",
+    "only_employees": "Adresse mail non autorisée."
+  },
+  "brand": {
+    "tagline": "Gardez le contact."
+  },
+  "link_error": {
+    "title": "Ce lien a expiré",
+    "description": "Demandez un nouveau lien de connexion.",
+    "try_again": "Demander un nouveau lien"
+  },
+  "not_found": {
+    "title": "Page introuvable",
+    "description": "Cette adresse a peut-être changé.",
+    "home": "Retour à CardTuck"
+  }
+}

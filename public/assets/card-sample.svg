@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 178" width="330" height="178">
+  <rect x=".5" y=".5" width="329" height="177" rx="5" fill="#F8F6EE" stroke="#CBDCD3"/>
+  <g fill="#00624D" font-family="sans-serif">
+    <text x="25" y="38" font-size="13" font-weight="bold" letter-spacing="2">STUDIO TIDEMARK</text>
+    <text x="25" y="117" font-size="14">Design Director</text>
+    <text x="25" y="151" font-size="12">maya@tidemark.example · +1 604 555 0142</text>
+    <path d="M289 26v23m-11-12h22m-19-8 16 16m0-16-16 16" fill="none" stroke="#00624D" stroke-width="1.5"/>
+  </g>
+  <text x="25" y="97" font-size="43" font-family="Georgia,serif" fill="#112D25">Maya Chen</text>
+</svg>

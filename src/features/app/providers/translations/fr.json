@@ -1,0 +1,24 @@
+{
+  "title": "Carnets connectés",
+  "add_btn": "Ajouter un carnet",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "label": "Nom",
+  "username": "Identifiant",
+  "password": "Mot de passe",
+  "test_btn": "Tester la connexion",
+  "test_success": "Connexion réussie",
+  "test_failed": "Connexion échouée",
+  "save_btn": "Enregistrer",
+  "cancel_btn": "Annuler",
+  "saved_toast": "Provider enregistré",
+  "deleted_toast": "Provider supprimé",
+  "pick_provider": "Choisir un provider",
+  "no_providers": "Aucun carnet d’adresses connecté.",
+  "error_generic": "Erreur",
+  "error_network": "Erreur réseau",
+  "errors": {
+    "provider_not_found": "Provider introuvable",
+    "password_required": "Mot de passe requis pour un nouveau provider"
+  }
+}
