@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, ExternalLink, Image as ImageIcon, RefreshCw, Trash2 } from "lucide-react";
+import { ExternalLink, Image as ImageIcon, RefreshCw, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -10,11 +10,11 @@ import type { ProviderSummary, Tag } from "@/db/schemas/contacts";
 import type { CardSide } from "@/features/app/scanner/card-photos";
 import { TagPopover } from "@/features/app/tags/components/tag-popover";
 import { tagStyle } from "@/features/app/tags/tag-palette";
-import { downloadVCard } from "@/lib/vcf";
 import { deleteContact } from "../actions/delete-contact.action";
 import { removeContactPhotos } from "../actions/remove-photos.action";
 import { syncContact } from "../actions/sync-contact.action";
 import { contactLabel, type ListedContact } from "../listed-contact";
+import { ContactTransfer } from "./contact-transfer";
 
 function websiteLink(value: string) {
 	if (!value.trim()) return;
@@ -184,18 +184,7 @@ export function ContactCard({
 							</div>
 						)}
 						<div className="grid gap-2 sm:grid-cols-2">
-							<Button
-								variant="outline"
-								onClick={() =>
-									downloadVCard(
-										contact,
-										assigned.map((tag) => tag.name),
-									)
-								}
-							>
-								<Download />
-								{t("download_vcf")}
-							</Button>
+							<ContactTransfer contact={contact} tagNames={assigned.map((tag) => tag.name)} />
 							<Button variant="outline" onClick={() => (providers.length ? setPanel("sync") : onAddressBooks())}>
 								<RefreshCw />
 								{providers.length ? ui("syncContact") : ui("addAddressBook")}

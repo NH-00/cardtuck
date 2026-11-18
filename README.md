@@ -4,7 +4,7 @@
 
 CardTuck turns the business cards you pick up into contacts you can use. Scan a card with your phone or upload photos, check the extracted details, and save the contact to export or sync later.
 
-[Open CardTuck](https://cardtuck.app/) · [Run locally](#run-locally) · [Send a contact to Apple Contacts](#send-a-contact-to-apple-contacts) · [Deploy on a server](#deploy-on-a-server)
+[Open CardTuck](https://cardtuck.app/) · [Run locally](#run-locally) · [Add to your phone](#add-a-contact-to-your-phone) · [Deploy on a server](#deploy-on-a-server)
 
 ## From card to contact
 
@@ -73,16 +73,26 @@ For a different vision-capable Ollama model, set `OLLAMA_MODEL` to the name show
 
 To scan, use **Scan → Use camera** or **Upload images**. Pair front and back photos if needed, read the card, correct the fields, and save. The **Keep card photos with this contact** checkbox starts off. You can remove retained images from a saved contact later.
 
-## Send a contact to Apple Contacts
+## Add a contact to your phone
+
+Open a saved person in CardTuck and tap **Add to Contacts**. Install the matching helper once from **One-time setup**. Both helpers are free and open the phone’s editor for you to confirm the save. The handoff includes one contact at a time and leaves out card photos and tags.
+
+- **iPhone:** In Shortcuts, add **CardTuck Add Contact** and keep that name. Open the contact in Safari and use **Add to Contacts**. The shortcut fills the name, company, phone, and email. For structured job title, website, and address fields, use the vCard.
+- **Android:** Install **CardTuck Contacts** from the APK and open the contact in Chrome. Its helper opens Android’s contact editor without Contacts or network permissions. Follow the [Android build steps](mobile/android/README.md) to sign your own APK for distribution.
+
+[Download vCard](#import-a-vcard) is available on both phones and on desktop.
+
+## Import a vCard
 
 1. In CardTuck, open **Contacts**. Find the person and open their saved entry. After a scan, **View contact** opens that same entry.
 2. Click **Download vCard**. This downloads a `.vcf` file for that person. Repeat for each person you want to add.
-3. Import the file in Apple Contacts:
+3. Import it in your contacts app:
    - **iPhone:** Tap the `.vcf` attachment in Mail or Messages, then review and add the person. [Apple’s iPhone instructions](https://support.apple.com/en-gb/guide/iphone/iph356499f31/ios)
    - **Mac:** Open Contacts and choose **File → Import**. Select the file, then review and add it. [Apple’s Mac instructions](https://support.apple.com/guide/contacts/import-contacts-adrbk1457/mac)
    - **iCloud Contacts:** On a tablet or computer, open [iCloud Contacts](https://www.icloud.com/contacts/). Choose **Add (+) → Import Contact** and select the file. With iCloud Contacts enabled on your devices, the entry syncs through your Apple Account. [Apple’s iCloud instructions](https://support.apple.com/en-lk/guide/icloud/mmfba748b2/icloud)
+   - **Android:** In Google Contacts, choose **Organize → Import from file**, pick the account, and select the `.vcf`. [Google’s Android instructions](https://support.google.com/contacts/answer/15147365?co=GENIE.Platform%3DAndroid&hl=en)
 
-CardTuck also supports sending a saved entry to a configured CardDAV address book via **Sync contact**. Ask the operator to set `CARDDAV_ALLOWED_ORIGINS` to the exact, trusted server origins. Then configure your book under **Account → Address books** and choose a destination on the contact. Use the collection URL supplied by your provider. The Apple steps above use vCard import and require no Apple Account credentials in CardTuck.
+CardTuck also supports sending a saved entry to a configured CardDAV address book via **Sync contact**. Ask the operator to set `CARDDAV_ALLOWED_ORIGINS` to the exact, trusted server origins. Then configure your book under **Account → Address books** and choose a destination on the contact. Use the collection URL supplied by your provider. The Apple Shortcut and vCard import routes require no Apple Account credentials in CardTuck.
 
 ## Deploy on a server
 
@@ -123,4 +133,6 @@ See [SECURITY.md](.github/SECURITY.md) for private reporting, [CONTRIBUTING.md](
 
 Run `pnpm typecheck`, `pnpm test`, and `pnpm build` after configuring the local `.env`. Use the pinned pnpm version in `package.json`. The build assembles a standalone package in `.next/standalone`.
 
-CardTuck is based on the MIT-licensed [QardQntac](https://github.com/Occitanie-Open-Source-OCCOS/QardQntac) snapshot at commit `67b5677ae058284a5c6c51848421b395edc0e07f`. See [LICENSE](LICENSE) for the original copyright notice. The Instrument Sans and Instrument Serif font notices are in `public/fonts/CardTuck`.
+## License and attribution
+
+CardTuck uses the [MIT License](LICENSE). It is based on [QardQntac](https://github.com/Occitanie-Open-Source-OCCOS/QardQntac) snapshot at commit `67b5677ae058284a5c6c51848421b395edc0e07f`. The license keeps the original 2026 copyright notice for Occitanie Open Source (OCCOS). The Instrument Sans and Instrument Serif font notices are in `public/fonts/CardTuck`.

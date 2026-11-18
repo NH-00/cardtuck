@@ -4,8 +4,7 @@ import styles from "../website.module.css";
 import { ReadingPage } from "../website-chrome";
 
 const title = "Address book compatibility";
-const intro =
-	"Keep the contacts app you already use. CardTuck exports a vCard (.vcf) you can import into Apple Contacts or Google Contacts.";
+const intro = "Add a person to the contacts app on your phone, or download a vCard (.vcf) to import on another device.";
 const links = [
 	{ id: "apple", title: "Apple Contacts" },
 	{ id: "google", title: "Google Contacts" },
@@ -32,10 +31,26 @@ export default function CompatibilityPage() {
 					Open <strong>Contacts</strong> in CardTuck, select the person, and choose <strong>Download vCard</strong>. The
 					file contains that person’s details. Repeat for each person you want to add.
 				</p>
-				<h3>On iPhone</h3>
+				<h3 id="iphone-setup">Add to Contacts on iPhone</h3>
+				<ol className="list-decimal space-y-2 pl-5">
+					<li>
+						Open the CardTuck shortcut on your iPhone and tap <strong>Add Shortcut</strong>. Keep the name{" "}
+						<strong>CardTuck Add Contact</strong>.
+					</li>
+					<li>
+						In CardTuck, open a saved person and tap <strong>Add to Contacts</strong>. Allow Safari to open Shortcuts if
+						asked.
+					</li>
+					<li>
+						Check the prefilled name, company, phone and email, then tap <strong>Done</strong> to save.
+					</li>
+				</ol>
+				<a href="/mobile/CardTuck%20Add%20Contact.shortcut" download>
+					Get the Apple Shortcut
+				</a>
 				<p>
-					Tap the downloaded .vcf as a Mail or Messages attachment on your iPhone. Review the details and add the
-					contact when prompted.
+					For a website, job title, or street address, download a vCard. Tap the downloaded .vcf as a Mail or Messages
+					attachment on your iPhone. Review the details and add the contact when prompted.
 				</p>
 				<a href="https://support.apple.com/en-gb/guide/iphone/iph356499f31/ios">Apple’s guide for iPhone</a>
 				<h3>On Mac</h3>
@@ -62,10 +77,26 @@ export default function CompatibilityPage() {
 				<a href="https://support.google.com/contacts/answer/15147365?co=GENIE.Platform%3DDesktop&hl=en">
 					Google’s guide for the web
 				</a>
-				<h3>On Android</h3>
+				<h3 id="android-setup">Add to Contacts on Android</h3>
+				<ol className="list-decimal space-y-2 pl-5">
+					<li>
+						Download the CardTuck helper APK and open it on your Android phone. Android may ask if your browser can
+						install this app.
+					</li>
+					<li>
+						In Chrome, open the person in CardTuck and tap <strong>Add to Contacts</strong>.
+					</li>
+					<li>
+						Review the prefilled details, choose the address book if asked, and tap <strong>Save</strong>.
+					</li>
+				</ol>
+				<a href="/mobile/cardtuck-contacts.apk" download>
+					Download the Android helper
+				</a>
+				<p>The helper opens your phone’s editor and needs no access to your existing contacts.</p>
 				<p>
-					Open Google Contacts and use <strong>Import from file</strong> under Organize. Choose the Google account where
-					you want the contact, then select your .vcf file.
+					To import a vCard, open Google Contacts and use <strong>Import from file</strong> under Organize. Choose the
+					Google account where you want the contact, then select your .vcf file.
 				</p>
 				<a href="https://support.google.com/contacts/answer/15147365?co=GENIE.Platform%3DAndroid&hl=en">
 					Google’s guide for Android
@@ -76,8 +107,8 @@ export default function CompatibilityPage() {
 				<p>
 					If your address book provider supports CardDAV, open a saved contact and choose{" "}
 					<strong>Set up address books</strong>. Once connected, choose <strong>Sync contact</strong> and select the
-					destination. Your operator needs to approve the server first. For Apple Contacts, use the vCard import steps
-					above.
+					destination. Your operator needs to approve the server first. For Apple Contacts, use the iPhone or vCard
+					steps above.
 				</p>
 			</section>
 		</ReadingPage>

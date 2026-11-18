@@ -65,5 +65,13 @@
     "deleteHelp": "This removes the contact and its card photos. Exported or synced copies stay where they are.",
     "removePhotosTitle": "Remove card photos?",
     "removePhotosHelp": "The contact and its details will remain in CardTuck."
+  },
+  "transfer": {
+    "add": "Add to Contacts",
+    "iphone": "Opens the CardTuck Apple Shortcut.",
+    "android": "Opens the CardTuck Android helper.",
+    "setup": "One-time setup",
+    "opened": "Still here? Check setup or download the vCard.",
+    "tooLarge": "Use the vCard to transfer this longer contact."
   }
 }
