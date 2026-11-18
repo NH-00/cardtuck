@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 import { env } from "@/env";
 
-const BASE_URL = env.APP_URL;
+export const dynamic = "force-dynamic";
 
 export default function robots(): MetadataRoute.Robots {
-	const isProduction = BASE_URL && !BASE_URL.includes("localhost");
+	const site = new URL(env.APP_URL);
+	const isLocal = ["localhost", "127.0.0.1", "[::1]"].includes(site.hostname);
 
-	if (!isProduction) {
+	if (isLocal) {
 		return {
 			rules: {
 				userAgent: "*",
@@ -20,7 +21,7 @@ export default function robots(): MetadataRoute.Robots {
 			userAgent: "*",
 			allow: "/",
 		},
-		sitemap: `${BASE_URL}/sitemap.xml`,
-		host: BASE_URL,
+		sitemap: new URL("/sitemap.xml", site).href,
+		host: site.origin,
 	};
 }
