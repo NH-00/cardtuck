@@ -123,4 +123,6 @@ See [SECURITY.md](.github/SECURITY.md) for private reporting, [CONTRIBUTING.md](
 
 Run `pnpm typecheck`, `pnpm test`, and `pnpm build` after configuring the local `.env`. Use the pinned pnpm version in `package.json`. The build assembles a standalone package in `.next/standalone`.
 
-CardTuck is based on the MIT-licensed [QardQntac](https://github.com/Occitanie-Open-Source-OCCOS/QardQntac) snapshot at commit `67b5677ae058284a5c6c51848421b395edc0e07f`. See [LICENSE](LICENSE) for the original copyright notice. The Instrument Sans and Instrument Serif font notices are in `public/fonts/CardTuck`.
+## License and attribution
+
+CardTuck uses the [MIT License](LICENSE). It is based on [QardQntac](https://github.com/Occitanie-Open-Source-OCCOS/QardQntac) snapshot at commit `67b5677ae058284a5c6c51848421b395edc0e07f`. The license keeps the original 2026 copyright notice for Occitanie Open Source (OCCOS). The Instrument Sans and Instrument Serif font notices are in `public/fonts/CardTuck`.
