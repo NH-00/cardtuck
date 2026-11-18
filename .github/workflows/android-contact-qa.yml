@@ -1,0 +1,25 @@
+name: Android contact editor test
+on:
+  push:
+    branches:
+      - qa/android-contact-editor
+permissions:
+  contents: read
+jobs:
+  android-contact-editor:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - name: Install official Android SDK packages
+        shell: bash
+        run: |
+          sdkmanager --install 'platform-tools' 'emulator' 'platforms;android-35' 'build-tools;35.0.1' 'system-images;android-35;default;x86_64'
+          test -e /dev/kvm
+          sudo chown "$USER" /dev/kvm
+          printf 'no\n' | avdmanager create avd --force -n CardTuckTest -k 'system-images;android-35;default;x86_64'
+      - name: Build and test the Android editor
+        shell: bash
+        run: bash mobile/android/qa-contact-editor.sh
