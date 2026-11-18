@@ -18,11 +18,11 @@ Screenshots use a fictional contact.
 
 ## Get the source
 
-On [GitHub](https://github.com/NH-00/cardtuck-public), choose **Code → Download ZIP** and extract it, or clone the project:
+On [GitHub](https://github.com/NH-00/cardtuck), choose **Code → Download ZIP** and extract it, or clone the project:
 
 ```sh
-git clone https://github.com/NH-00/cardtuck-public.git
-cd cardtuck-public
+git clone https://github.com/NH-00/cardtuck.git
+cd cardtuck
 ```
 
 If you downloaded a ZIP, open a terminal in the extracted folder and continue below.

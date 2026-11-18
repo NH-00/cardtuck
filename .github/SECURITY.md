@@ -4,7 +4,7 @@ We review security reports for the current `main` branch. Keep your deployment o
 
 ## Report a vulnerability privately
 
-Use [GitHub’s private vulnerability reporting](https://github.com/NH-00/cardtuck-public/security/advisories/new). Include the affected revision, the behavior you observed, and the impact. Use a local test instance and fictional data. Keep sign-in URLs, API keys, contact details, and card images out of the report.
+Use [GitHub’s private vulnerability reporting](https://github.com/NH-00/cardtuck/security/advisories/new). Include the affected revision, the behavior you observed, and the impact. Use a local test instance and fictional data. Keep sign-in URLs, API keys, contact details, and card images out of the report.
 
 For concerns about a specific self-hosted installation, contact its operator.
 

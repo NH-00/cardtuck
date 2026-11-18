@@ -23,7 +23,7 @@ export default function SelfHostPage() {
 				<p>
 					Get CardTuck from GitHub. Choose <strong>Code → Download ZIP</strong> and extract it, or clone the repository.
 				</p>
-				<a href="https://github.com/NH-00/cardtuck-public">CardTuck on GitHub</a>
+				<a href="https://github.com/NH-00/cardtuck">CardTuck on GitHub</a>
 				<p>If you have a source ZIP, open a terminal in the extracted folder.</p>
 			</section>
 			<section id="local" className={styles.readingSection}>
