@@ -1,0 +1,25 @@
+name: Check the iPhone test runtime
+on:
+  push:
+    branches:
+      - qa/iphone-shortcuts
+permissions:
+  contents: read
+jobs:
+  check-ios-simulator:
+    runs-on: macos-26
+    timeout-minutes: 5
+    steps:
+      - name: Check Shortcuts on iPhone Simulator
+        shell: bash
+        run: |
+          phone="$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k,v in d.items() if "iOS-" in k for x in v if x["name"].startswith("iPhone") and x["isAvailable"]))')"
+          xcrun simctl boot "$phone"
+          xcrun simctl bootstatus "$phone" -b
+          xcrun simctl listapps "$phone" > "$RUNNER_TEMP/iphone-apps.plist"
+          if /usr/libexec/PlistBuddy -c 'Print :com.apple.shortcuts' "$RUNNER_TEMP/iphone-apps.plist" >/dev/null 2>&1; then
+            printf 'Shortcuts is available on this iPhone Simulator.\n'
+          else
+            printf 'Shortcuts is absent from this iPhone Simulator. A real iPhone is required for this handoff check.\n'
+            exit 1
+          fi
