@@ -4,7 +4,9 @@ import SwiftUI
 struct CardTuckPhoneQA: App {
     var body: some Scene {
         WindowGroup {
-            Text("CardTuck QA")
+            Button("Open CardTuck test in Safari") {
+                UIApplication.shared.open(URL(string: "http://127.0.0.1:8086/")!)
+            }
                 .onAppear {
                     guard let source = Bundle.main.url(forResource: "CardTuck Add Contact", withExtension: "shortcut"),
                           let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {

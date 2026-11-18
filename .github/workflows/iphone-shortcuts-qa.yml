@@ -31,7 +31,7 @@ jobs:
           python3 -m http.server 8086 --bind 127.0.0.1 --directory "$RUNNER_TEMP/cardtuck-fixture" > "$RUNNER_TEMP/contact-http.log" 2>&1 &
           xcrun simctl boot "$phone"
           xcrun simctl bootstatus "$phone" -b
-          xcrun simctl openurl "$phone" http://127.0.0.1:8086/
+          curl --retry 4 --retry-connrefused --fail --silent http://127.0.0.1:8086/ >/dev/null
           cd mobile/iphone-qa
           xcodegen generate
           xcodebuild test -scheme CardTuckPhoneQA -destination "id=$phone" -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO -quiet

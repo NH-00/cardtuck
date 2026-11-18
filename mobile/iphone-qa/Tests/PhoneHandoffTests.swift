@@ -16,7 +16,8 @@ final class PhoneHandoffTests: XCTestCase {
 
     func testSafariOpensPrefilledContactEditor() {
         continueAfterFailure = false
-        XCUIApplication().launch()
+        let fixture = XCUIApplication()
+        fixture.launch()
 
         let files = XCUIApplication(bundleIdentifier: "com.apple.DocumentsApp")
         files.launch()
@@ -38,11 +39,12 @@ final class PhoneHandoffTests: XCTestCase {
             shortcuts.debugDescription + "\n" + files.debugDescription
         )
 
+        fixture.activate()
+        fixture.buttons["Open CardTuck test in Safari"].tap()
         let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-        safari.activate()
         _ = tapIfPresent(safari, "Continue")
         let handoff = safari.links["Add to Contacts"]
-        XCTAssertTrue(handoff.waitForExistence(timeout: 10), safari.debugDescription)
+        XCTAssertTrue(handoff.waitForExistence(timeout: 25), safari.debugDescription)
         handoff.tap()
 
         let system = XCUIApplication(bundleIdentifier: "com.apple.springboard")
