@@ -47,6 +47,8 @@ printf 'Booted Android %s.\n' "$(droid shell getprop ro.build.version.release | 
 droid install "$tmp/cardtuck.apk"
 droid shell input keyevent KEYCODE_WAKEUP
 droid shell wm dismiss-keyguard
+droid shell wm size 720x1600
+droid shell wm density 220
 
 intent="$(node --input-type=module - <<'JS'
 import { contactHandoffUrl } from './src/lib/contact-handoff.ts';
@@ -94,6 +96,9 @@ printf 'Android opened its native prefilled editor with name, phone, email, and 
 read -r tap_x tap_y <<< "$tap"
 droid shell input tap "$tap_x" "$tap_y"
 for attempt in {1..10}; do
+  if (( attempt == 4 )); then
+    droid shell am start -W -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -p com.android.contacts >/dev/null || true
+  fi
   if read_editor && grep -q 'Avery North' "$tmp/editor.xml" && ! grep -qi 'text="Save"' "$tmp/editor.xml"; then
     printf 'Android saved and displayed the fictional contact.\n'
     exit 0

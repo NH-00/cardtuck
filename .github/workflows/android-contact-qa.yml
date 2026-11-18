@@ -42,7 +42,10 @@ jobs:
           mkdir -p "$ANDROID_AVD_HOME"
           printf 'ANDROID_USER_HOME=%s\nANDROID_AVD_HOME=%s\n' "$ANDROID_USER_HOME" "$ANDROID_AVD_HOME" >> "$GITHUB_ENV"
           printf 'no\n' | "${tools%/*}/avdmanager" create avd --force -n CardTuckTest -p "$ANDROID_AVD_HOME/CardTuckTest.avd" -k 'system-images;android-35;default;x86_64'
-          test -f "$ANDROID_AVD_HOME/CardTuckTest.avd/config.ini"
+          config="$ANDROID_AVD_HOME/CardTuckTest.avd/config.ini"
+          test -f "$config"
+          sed -i -E '/^hw\.lcd\.(width|height|density)[[:space:]]*=/d' "$config"
+          printf 'hw.lcd.width=720\nhw.lcd.height=1600\nhw.lcd.density=220\n' >> "$config"
           printf 'path=%s/CardTuckTest.avd\ntarget=android-35\n' "$ANDROID_AVD_HOME" > "$ANDROID_AVD_HOME/CardTuckTest.ini"
           "$ANDROID_HOME/emulator/emulator" -list-avds | grep -Fx CardTuckTest
       - name: Build and test the Android editor
