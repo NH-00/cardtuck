@@ -19,6 +19,10 @@ final class PhoneHandoffTests: XCTestCase {
         let fixture = XCUIApplication()
         fixture.launch()
 
+        let shortcuts = XCUIApplication(bundleIdentifier: "com.apple.shortcuts")
+        shortcuts.launch()
+        _ = tapIfPresent(shortcuts, "Continue", timeout: 5)
+
         let files = XCUIApplication(bundleIdentifier: "com.apple.DocumentsApp")
         files.launch()
         _ = tapIfPresent(files, "Continue")
@@ -31,13 +35,19 @@ final class PhoneHandoffTests: XCTestCase {
         XCTAssertTrue(shortcutFile.waitForExistence(timeout: 8), files.debugDescription)
         shortcutFile.tap()
 
-        let shortcuts = XCUIApplication(bundleIdentifier: "com.apple.shortcuts")
-        _ = tapIfPresent(files, "Open in Shortcuts")
-        _ = tapIfPresent(shortcuts, "Continue")
-        XCTAssertTrue(
-            tapIfPresent(shortcuts, "Add Shortcut", timeout: 8) || tapIfPresent(files, "Add Shortcut"),
-            shortcuts.debugDescription + "\n" + files.debugDescription
-        )
+        if files.state == .runningForeground {
+            print("Files after opening the signed shortcut:\n\(files.debugDescription)")
+            _ = tapIfPresent(files, "Open in Shortcuts") || tapIfPresent(files, "Open")
+        }
+        let importer = shortcuts.state == .runningForeground ? shortcuts : files
+        _ = tapIfPresent(importer, "Continue")
+        let added = tapIfPresent(importer, "Add Shortcut", timeout: 10)
+        if !added {
+            for app in [files, shortcuts] where app.state == .runningForeground {
+                print(app.debugDescription)
+            }
+        }
+        XCTAssertTrue(added, "The iPhone did not offer Add Shortcut after opening the signed file.")
 
         fixture.activate()
         fixture.buttons["Open CardTuck test in Safari"].tap()
