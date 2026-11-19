@@ -13,10 +13,19 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           persist-credentials: false
+      - name: Prepare the Xcode test project
+        working-directory: mobile/iphone-qa
+        shell: bash
+        run: |
+          if ! ruby -rxcodeproj -e 'abort unless Xcodeproj::VERSION == "1.27.0"'; then
+            export GEM_PATH="$RUNNER_TEMP/cardtuck-gems:$(gem env path)"
+            gem install xcodeproj --version 1.27.0 --install-dir "$RUNNER_TEMP/cardtuck-gems" --no-document
+          fi
+          ruby generate-project.rb
+          xcodebuild -list -project CardTuckPhoneQA.xcodeproj
       - name: Build and open a fictional contact in Safari
         shell: bash
         run: |
-          if ! command -v xcodegen >/dev/null; then brew install xcodegen; fi
           phone="$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k,v in d.items() if "iOS-" in k for x in v if x["name"].startswith("iPhone") and x["isAvailable"]))')"
           mkdir -p "$RUNNER_TEMP/cardtuck-fixture"
           node --input-type=module - > "$RUNNER_TEMP/cardtuck-fixture/index.html" <<'JS'
@@ -33,5 +42,4 @@ jobs:
           xcrun simctl bootstatus "$phone" -b
           curl --retry 4 --retry-connrefused --fail --silent http://127.0.0.1:8086/ >/dev/null
           cd mobile/iphone-qa
-          xcodegen generate
-          xcodebuild test -scheme CardTuckPhoneQA -destination "id=$phone" -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO -quiet
+          xcodebuild test -project CardTuckPhoneQA.xcodeproj -scheme CardTuckPhoneQA -destination "platform=iOS Simulator,id=$phone" -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO -quiet
