@@ -42,4 +42,15 @@ jobs:
           xcrun simctl bootstatus "$phone" -b
           curl --retry 4 --retry-connrefused --fail --silent http://127.0.0.1:8086/ >/dev/null
           cd mobile/iphone-qa
-          xcodebuild test -project CardTuckPhoneQA.xcodeproj -scheme CardTuckPhoneQA -destination "platform=iOS Simulator,id=$phone" -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO -quiet
+          xcodebuild test -project CardTuckPhoneQA.xcodeproj -scheme CardTuckPhoneQA \
+            -destination "platform=iOS Simulator,id=$phone,arch=$(uname -m)" \
+            -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO \
+            -resultBundlePath "$RUNNER_TEMP/cardtuck-iphone.xcresult"
+      - name: Show the exact iPhone test result
+        if: always()
+        shell: bash
+        run: |
+          result="$RUNNER_TEMP/cardtuck-iphone.xcresult"
+          if [[ -d "$result" ]]; then
+            xcrun xcresulttool get test-results summary --path "$result"
+          fi

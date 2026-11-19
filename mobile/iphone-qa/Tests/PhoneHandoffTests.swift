@@ -60,6 +60,13 @@ final class PhoneHandoffTests: XCTestCase {
         for field in ["Maya", "Chen", "Studio Tidemark", "maya@tidemark.example"] {
             XCTAssertTrue(text(shortcuts, field).exists || text(system, field).exists, "Missing prefilled field: \(field)")
         }
+        let phoneNumber = "6045550142"
+        let phoneMatches = [shortcuts, system].contains { app in
+            app.textFields.allElementsBoundByIndex.contains { field in
+                (field.value as? String ?? "").filter(\.isNumber).hasSuffix(phoneNumber)
+            }
+        }
+        XCTAssertTrue(phoneMatches, "Missing the prefilled phone number")
         print("iPhone Safari opened Apple's native contact editor with the expected fields.")
     }
 }
