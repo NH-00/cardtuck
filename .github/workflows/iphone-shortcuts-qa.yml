@@ -28,6 +28,7 @@ jobs:
         run: |
           phone="$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k,v in d.items() if "iOS-" in k for x in v if x["name"].startswith("iPhone") and x["isAvailable"]))')"
           mkdir -p "$RUNNER_TEMP/cardtuck-fixture"
+          cp 'public/mobile/CardTuck Add Contact.shortcut' "$RUNNER_TEMP/cardtuck-fixture/"
           node --input-type=module - > "$RUNNER_TEMP/cardtuck-fixture/index.html" <<'JS'
           import { contactHandoffUrl } from './src/lib/contact-handoff.ts';
           const contact = {
@@ -35,7 +36,7 @@ jobs:
             phone: "+16045550142", email: "maya@tidemark.example", address: "", website: ""
           };
           const url = contactHandoffUrl("ios", contact).replaceAll("&", "&amp;");
-          console.log('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><a href="' + url + '" target="_blank" rel="noopener noreferrer">Add to Contacts</a>');
+          console.log('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><p><a href="CardTuck%20Add%20Contact.shortcut" download>Download CardTuck shortcut</a></p><p><a href="' + url + '" target="_blank" rel="noopener noreferrer">Add to Contacts</a></p>');
           JS
           python3 -m http.server 8086 --bind 127.0.0.1 --directory "$RUNNER_TEMP/cardtuck-fixture" > "$RUNNER_TEMP/contact-http.log" 2>&1 &
           xcrun simctl boot "$phone"

@@ -8,9 +8,6 @@ tests = project.new_target(:ui_test_bundle, "#{name}Tests", :ios, '18.0', nil, :
 tests.add_dependency(app)
 
 app.source_build_phase.add_file_reference(project.new_file('App/CardTuckPhoneQA.swift'))
-shortcut = project.new_file('../../public/mobile/CardTuck Add Contact.shortcut')
-shortcut.last_known_file_type = 'file'
-app.resources_build_phase.add_file_reference(shortcut)
 tests.source_build_phase.add_file_reference(project.new_file('Tests/PhoneHandoffTests.swift'))
 
 app.build_configurations.each do |configuration|
