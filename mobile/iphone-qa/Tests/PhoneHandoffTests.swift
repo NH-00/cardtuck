@@ -44,7 +44,8 @@ final class PhoneHandoffTests: XCTestCase {
         file.tap()
 
         let shortcuts = XCUIApplication(bundleIdentifier: "com.apple.shortcuts")
-        XCTAssertTrue(shortcuts.wait(for: .runningForeground, timeout: 20), "Safari did not open the signed file in Shortcuts.")
+        let openedInShortcuts = shortcuts.wait(for: .runningForeground, timeout: 20)
+        XCTAssertTrue(openedInShortcuts, safari.state == .runningForeground ? safari.debugDescription : "Safari did not open the signed file in Shortcuts.")
         _ = tapIfPresent(shortcuts, "Continue")
         XCTAssertTrue(tapIfPresent(shortcuts, "Add Shortcut", timeout: 10), shortcuts.debugDescription)
 
