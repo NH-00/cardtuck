@@ -26,7 +26,13 @@ final class PhoneHandoffTests: XCTestCase {
         let download = safari.links["Download CardTuck shortcut"]
         XCTAssertTrue(download.waitForExistence(timeout: 25), safari.debugDescription)
         download.tap()
-        XCTAssertTrue(tapIfPresent(safari, "Download", timeout: 10), safari.debugDescription)
+        let firstUseTipClose = safari.buttons.matching(identifier: "xmark.circle.fill").firstMatch
+        if firstUseTipClose.waitForExistence(timeout: 4), firstUseTipClose.isHittable {
+            firstUseTipClose.tap()
+        }
+        let confirmDownload = safari.buttons["Download"]
+        XCTAssertTrue(confirmDownload.waitForExistence(timeout: 12), safari.debugDescription)
+        confirmDownload.tap()
 
         if !tapIfPresent(safari, "Downloads") {
             let pageMenu = safari.buttons.matching(NSPredicate(
