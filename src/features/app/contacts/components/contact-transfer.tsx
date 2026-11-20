@@ -7,7 +7,6 @@ import { useState, useSyncExternalStore } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { contactHandoffPlatform, contactHandoffUrl } from "@/lib/contact-handoff";
 import type { ContactData } from "@/lib/types";
-import { generateVCard, vcfFileName } from "@/lib/vcf";
 
 function subscribe() {
 	return () => {};
@@ -17,7 +16,7 @@ function platformSnapshot() {
 	return contactHandoffPlatform(navigator.userAgent, navigator.maxTouchPoints);
 }
 
-export function ContactTransfer({ contact, tagNames }: { contact: ContactData; tagNames: string[] }) {
+export function ContactTransfer({ contact }: { contact: ContactData & { id: number } }) {
 	const t = useTranslations("contacts.transfer");
 	const card = useTranslations("contacts.card");
 	const platform = useSyncExternalStore(subscribe, platformSnapshot, () => null);
@@ -25,7 +24,6 @@ export function ContactTransfer({ contact, tagNames }: { contact: ContactData; t
 
 	// Keep the contact screen available if the browser can’t open the helper.
 	const nativeUrl = platform && contactHandoffUrl(platform, contact);
-	const vcardUrl = `data:text/vcard;charset=utf-8,${encodeURIComponent(generateVCard(contact, tagNames).toWellFormed())}`;
 
 	const actionLabel = (
 		<>
@@ -65,8 +63,8 @@ export function ContactTransfer({ contact, tagNames }: { contact: ContactData; t
 				</div>
 			)}
 			<a
-				href={vcardUrl}
-				download={vcfFileName(contact)}
+				href={`/api/contacts/${contact.id}/contact.vcf`}
+				download={platform === "ios" ? undefined : true}
 				className={buttonVariants({ variant: "outline", className: "min-h-11 w-full" })}
 			>
 				<Download />

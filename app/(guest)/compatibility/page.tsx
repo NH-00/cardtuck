@@ -34,8 +34,8 @@ export default function CompatibilityPage() {
 				<h3 id="iphone-setup">Add to Contacts on iPhone</h3>
 				<ol className="list-decimal space-y-2 pl-5">
 					<li>
-						Open the CardTuck shortcut on your iPhone and tap <strong>Add Shortcut</strong>. Keep the name{" "}
-						<strong>CardTuck Add Contact</strong>.
+						Download the CardTuck shortcut on your iPhone. In Safari, open <strong>Downloads</strong>, tap the file,
+						then tap <strong>Add Shortcut</strong>. Keep the name <strong>CardTuck Add Contact</strong>.
 					</li>
 					<li>
 						In CardTuck, open a saved person and tap <strong>Add to Contacts</strong>. Allow Safari to open Shortcuts if
@@ -49,8 +49,9 @@ export default function CompatibilityPage() {
 					Get the Apple Shortcut
 				</a>
 				<p>
-					For a website, job title, or street address, download a vCard. Tap the downloaded .vcf as a Mail or Messages
-					attachment on your iPhone. Review the details and add the contact when prompted.
+					To bring over a website, job title, or street address, use <strong>Download vCard</strong>. If Safari opens a
+					contact preview, tap <strong>Create New Contact</strong>, review the details, and save it. You can also open a
+					.vcf attachment in Mail or Messages.
 				</p>
 				<a href="https://support.apple.com/en-gb/guide/iphone/iph356499f31/ios">Apple’s guide for iPhone</a>
 				<h3>On Mac</h3>

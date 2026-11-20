@@ -184,7 +184,7 @@ export function ContactCard({
 							</div>
 						)}
 						<div className="grid gap-2 sm:grid-cols-2">
-							<ContactTransfer contact={contact} tagNames={assigned.map((tag) => tag.name)} />
+							<ContactTransfer contact={contact} />
 							<Button variant="outline" onClick={() => (providers.length ? setPanel("sync") : onAddressBooks())}>
 								<RefreshCw />
 								{providers.length ? ui("syncContact") : ui("addAddressBook")}
