@@ -2,7 +2,7 @@ name: iPhone Safari to Contacts test
 on:
   push:
     branches:
-      - qa/iphone-shortcuts
+      - qa/iphone-vcard
 permissions:
   contents: read
 jobs:
@@ -27,33 +27,10 @@ jobs:
         shell: bash
         run: |
           phone="$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k,v in reversed(list(d.items())) if "iOS-26-" in k for x in v if x["name"].startswith("iPhone") and x["isAvailable"]))')"
-          mkdir -p "$RUNNER_TEMP/cardtuck-fixture"
-          cp 'public/mobile/CardTuck Add Contact.shortcut' "$RUNNER_TEMP/cardtuck-fixture/"
-          node --input-type=module - > "$RUNNER_TEMP/cardtuck-fixture/index.html" <<'JS'
-          import { contactHandoffUrl } from './src/lib/contact-handoff.ts';
-          const contact = {
-            name: "Maya Chen", firstname: "Maya", lastname: "Chen", title: "", company: "Studio Tidemark",
-            phone: "+16045550142", email: "maya@tidemark.example", address: "", website: ""
-          };
-          const url = contactHandoffUrl("ios", contact).replaceAll("&", "&amp;");
-          console.log('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><p><a href="CardTuck%20Add%20Contact.shortcut" download>Download CardTuck shortcut</a></p><p><a href="' + url + '" target="_blank" rel="noopener noreferrer">Add to Contacts</a></p>');
-          JS
-          python3 - "$RUNNER_TEMP/cardtuck-fixture" > "$RUNNER_TEMP/contact-http.log" 2>&1 <<'PY' &
-          from functools import partial
-          from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
-          import sys
-
-          class FixtureHandler(SimpleHTTPRequestHandler):
-              def end_headers(self):
-                  if self.path.endswith('.shortcut'):
-                      self.send_header('Content-Disposition', 'attachment; filename="CardTuck Add Contact.shortcut"')
-                  super().end_headers()
-
-          ThreadingHTTPServer(('127.0.0.1', 8086), partial(FixtureHandler, directory=sys.argv[1])).serve_forever()
-          PY
+          npx --yes --package=tsx@4.23.13 tsx mobile/iphone-qa/serve-preview.cjs > "$RUNNER_TEMP/contact-http.log" 2>&1 &
           xcrun simctl boot "$phone"
           xcrun simctl bootstatus "$phone" -b
-          curl --retry 4 --retry-connrefused --fail --silent http://127.0.0.1:8086/ >/dev/null
+          curl --retry 4 --retry-connrefused --fail --silent http://127.0.0.1:8086/ >/dev/null || { cat "$RUNNER_TEMP/contact-http.log"; exit 1; }
           cd mobile/iphone-qa
           xcodebuild test -project CardTuckPhoneQA.xcodeproj -scheme CardTuckPhoneQA \
             -destination "platform=iOS Simulator,id=$phone,arch=$(uname -m)" \
