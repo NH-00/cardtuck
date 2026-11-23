@@ -2,22 +2,16 @@ import { and, eq } from "drizzle-orm";
 import { contacts, contactTags, tags } from "@/db/schemas";
 import { getVerifiedSession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
-import { generateVCard, vcfFileName } from "@/lib/vcf";
-
-const privateHeaders = {
-	"Cache-Control": "private, no-store",
-	"Cross-Origin-Resource-Policy": "same-origin",
-	"X-Content-Type-Options": "nosniff",
-};
+import { vCardResponse, vcardHeaders } from "@/lib/vcf-response";
 
 export async function GET(request: Request, { params }: { params: Promise<{ contactId: string }> }) {
 	const session = await getVerifiedSession(request.headers);
-	if (!session) return new Response(null, { status: 401, headers: privateHeaders });
+	if (!session) return new Response(null, { status: 401, headers: vcardHeaders });
 
 	const { contactId } = await params;
 	const id = Number(contactId);
 	if (!/^\d+$/.test(contactId) || id <= 0 || id > 2147483647) {
-		return new Response(null, { status: 404, headers: privateHeaders });
+		return new Response(null, { status: 404, headers: vcardHeaders });
 	}
 
 	const userId = session.user.id;
@@ -36,28 +30,16 @@ export async function GET(request: Request, { params }: { params: Promise<{ cont
 		.from(contacts)
 		.where(and(eq(contacts.id, id), eq(contacts.userId, userId)))
 		.limit(1);
-	if (!contact) return new Response(null, { status: 404, headers: privateHeaders });
+	if (!contact) return new Response(null, { status: 404, headers: vcardHeaders });
 
 	const tagRows = await db
 		.select({ name: tags.name })
 		.from(contactTags)
 		.innerJoin(tags, eq(contactTags.tagId, tags.id))
 		.where(and(eq(contactTags.contactId, id), eq(tags.userId, userId)));
-	const filename = encodeURIComponent(vcfFileName(contact).toWellFormed()).replace(
-		/['()*]/g,
-		(character) => `%${character.charCodeAt(0).toString(16).toUpperCase()}`,
-	);
-	return new Response(
-		generateVCard(
-			contact,
-			tagRows.map(({ name }) => name),
-		),
-		{
-			headers: {
-				...privateHeaders,
-				"Content-Type": "text/vcard; charset=utf-8",
-				"Content-Disposition": `attachment; filename="contact.vcf"; filename*=UTF-8''${filename}`,
-			},
-		},
+	return vCardResponse(
+		request,
+		contact,
+		tagRows.map(({ name }) => name),
 	);
 }

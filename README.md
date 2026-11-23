@@ -75,10 +75,10 @@ To scan, use **Scan → Use camera** or **Upload images**. Pair front and back p
 
 ## Add a contact to your phone
 
-Open a saved person in CardTuck and tap **Add to Contacts**. Install the matching helper once from **One-time setup**. Both helpers are free and open the phone’s editor for you to confirm the save. The handoff includes one contact at a time and leaves out card photos and tags.
+Open a saved person in CardTuck and tap **Add to Contacts**. The phone opens a contact preview or editor for you to review and save. Each transfer includes one contact and leaves out the card photos.
 
-- **iPhone:** In Shortcuts, add **CardTuck Add Contact** and keep that name. Open the contact in Safari and use **Add to Contacts**. The shortcut fills the name, company, phone, and email. For structured job title, website, and address fields, use the vCard.
-- **Android:** Install **CardTuck Contacts** from the APK and open the contact in Chrome. Its helper opens Android’s contact editor without Contacts or network permissions. Follow the [Android build steps](mobile/android/README.md) to sign your own APK for distribution.
+- **iPhone:** Open the contact in Safari. Tap **Add to Contacts**, then choose **Create New Contact** or **Add to Existing Contact** in Apple’s preview. Review the fields and save.
+- **Android:** Install the free **CardTuck Contacts** APK from **One-time setup**, then open the contact in Chrome. The helper opens Android’s contact editor without Contacts or network permissions. Follow the [Android build steps](mobile/android/README.md) to sign your own APK for distribution.
 
 [Download vCard](#import-a-vcard) is available on both phones and on desktop.
 
@@ -92,7 +92,7 @@ Open a saved person in CardTuck and tap **Add to Contacts**. Install the matchin
    - **iCloud Contacts:** On a tablet or computer, open [iCloud Contacts](https://www.icloud.com/contacts/). Choose **Add (+) → Import Contact** and select the file. With iCloud Contacts enabled on your devices, the entry syncs through your Apple Account. [Apple’s iCloud instructions](https://support.apple.com/en-lk/guide/icloud/mmfba748b2/icloud)
    - **Android:** In Google Contacts, choose **Organize → Import from file**, pick the account, and select the `.vcf`. [Google’s Android instructions](https://support.google.com/contacts/answer/15147365?co=GENIE.Platform%3DAndroid&hl=en)
 
-CardTuck also supports sending a saved entry to a configured CardDAV address book via **Sync contact**. Ask the operator to set `CARDDAV_ALLOWED_ORIGINS` to the exact, trusted server origins. Then configure your book under **Account → Address books** and choose a destination on the contact. Use the collection URL supplied by your provider. The Apple Shortcut and vCard import routes require no Apple Account credentials in CardTuck.
+CardTuck also supports sending a saved entry to a configured CardDAV address book via **Sync contact**. Ask the operator to set `CARDDAV_ALLOWED_ORIGINS` to the exact, trusted server origins. Then configure your book under **Account → Address books** and choose a destination on the contact. Use the collection URL supplied by your provider. Opening a vCard in Apple Contacts requires no Apple Account credentials in CardTuck.
 
 ## Deploy on a server
 

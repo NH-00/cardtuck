@@ -68,7 +68,6 @@
   },
   "transfer": {
     "add": "Ajouter aux contacts",
-    "iphone": "Ouvre le raccourci Apple CardTuck.",
     "android": "Ouvre l’application CardTuck pour Android.",
     "setup": "Configuration initiale",
     "opened": "Toujours ici ? Vérifiez la configuration ou téléchargez la vCard.",

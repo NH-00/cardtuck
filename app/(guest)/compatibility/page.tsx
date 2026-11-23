@@ -1,4 +1,4 @@
-import { Download, HardDriveDownload } from "lucide-react";
+import { ArrowUpRight, ContactRound } from "lucide-react";
 import type { Metadata } from "next";
 import styles from "../website.module.css";
 import { ReadingPage } from "../website-chrome";
@@ -17,41 +17,30 @@ export default function CompatibilityPage() {
 	return (
 		<ReadingPage path="/compatibility" title={title} intro={intro} links={links}>
 			<div className={styles.readingCallout}>
-				<HardDriveDownload size={24} aria-hidden />
+				<ContactRound size={24} aria-hidden />
 				<div>
 					<p>Try an import with a fictional contact before you scan your own card.</p>
-					<a href="/sample-contact.vcf" className={styles.textLink} download>
-						Download a sample vCard <Download size={16} aria-hidden />
+					<a href="/sample-contact.vcf" className={styles.textLink}>
+						Open a sample vCard <ArrowUpRight size={16} aria-hidden />
 					</a>
 				</div>
 			</div>
 			<section id="apple" className={styles.readingSection}>
 				<h2>Apple Contacts</h2>
-				<p>
-					Open <strong>Contacts</strong> in CardTuck, select the person, and choose <strong>Download vCard</strong>. The
-					file contains that person’s details. Repeat for each person you want to add.
-				</p>
 				<h3 id="iphone-setup">Add to Contacts on iPhone</h3>
 				<ol className="list-decimal space-y-2 pl-5">
 					<li>
-						Download the CardTuck shortcut on your iPhone. In Safari, open <strong>Downloads</strong>, tap the file,
-						then tap <strong>Add Shortcut</strong>. Keep the name <strong>CardTuck Add Contact</strong>.
+						In Safari, open the saved person in CardTuck and tap <strong>Add to Contacts</strong>.
 					</li>
 					<li>
-						In CardTuck, open a saved person and tap <strong>Add to Contacts</strong>. Allow Safari to open Shortcuts if
-						asked.
+						In Apple’s contact preview, choose <strong>Create New Contact</strong> or{" "}
+						<strong>Add to Existing Contact</strong>.
 					</li>
-					<li>
-						Check the prefilled name, company, phone and email, then tap <strong>Done</strong> to save.
-					</li>
+					<li>Review the details and save.</li>
 				</ol>
-				<a href="/mobile/CardTuck%20Add%20Contact.shortcut" download>
-					Get the Apple Shortcut
-				</a>
 				<p>
-					To bring over a website, job title, or street address, use <strong>Download vCard</strong>. If Safari opens a
-					contact preview, tap <strong>Create New Contact</strong>, review the details, and save it. You can also open a
-					.vcf attachment in Mail or Messages.
+					To keep a copy of the file or import it somewhere else, tap <strong>Download vCard</strong>. You can also open
+					a .vcf attachment in Mail or Messages.
 				</p>
 				<a href="https://support.apple.com/en-gb/guide/iphone/iph356499f31/ios">Apple’s guide for iPhone</a>
 				<h3>On Mac</h3>

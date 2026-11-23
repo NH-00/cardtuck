@@ -2,7 +2,6 @@ import type { ContactData } from "./types";
 
 export type ContactHandoffPlatform = "ios" | "android";
 
-const shortcutName = "CardTuck Add Contact";
 const androidPackage = "app.cardtuck.contacts";
 
 export function contactHandoffPlatform(userAgent: string, touchPoints: number): ContactHandoffPlatform | null {
@@ -11,7 +10,7 @@ export function contactHandoffPlatform(userAgent: string, touchPoints: number): 
 	return null;
 }
 
-export function contactHandoffUrl(platform: ContactHandoffPlatform, contact: ContactData): string | null {
+export function androidContactHandoffUrl(contact: ContactData): string | null {
 	const { name, firstname, lastname, company, title, phone, email, website, address } = contact;
 	const payload = {
 		firstname: firstname || (!lastname ? name : ""),
@@ -19,13 +18,13 @@ export function contactHandoffUrl(platform: ContactHandoffPlatform, contact: Con
 		company,
 		phone,
 		email,
+		title,
+		website,
+		address,
 	};
-	const input = JSON.stringify(platform === "ios" ? payload : { ...payload, title, website, address });
+	const input = JSON.stringify(payload);
 	if (new TextEncoder().encode(input).length > 8192) return null;
 
 	const encoded = encodeURIComponent(input);
-	if (platform === "ios") {
-		return `shortcuts://run-shortcut?name=${encodeURIComponent(shortcutName)}&input=text&text=${encoded}`;
-	}
 	return `intent://add#Intent;scheme=cardtuck-contacts;package=${androidPackage};S.payload=${encoded};end`;
 }

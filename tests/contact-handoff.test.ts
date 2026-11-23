@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { contactHandoffPlatform, contactHandoffUrl } from "../src/lib/contact-handoff";
+import { androidContactHandoffUrl, contactHandoffPlatform } from "../src/lib/contact-handoff";
 import { emptyContact } from "../src/lib/types";
+import { vCardResponse } from "../src/lib/vcf-response";
 
 const contact = {
 	...emptyContact(),
@@ -25,23 +26,25 @@ test("only mobile browser identities get an on-device handoff", () => {
 	assert.equal(contactHandoffPlatform("Mozilla/5.0 (Macintosh)", 0), null);
 });
 
-test("iOS sends only the editor fields as one JSON Shortcut input", () => {
-	const url = new URL(contactHandoffUrl("ios", contact) ?? "");
-	assert.equal(url.protocol, "shortcuts:");
-	assert.equal(url.hostname, "run-shortcut");
-	assert.equal(url.searchParams.get("name"), "CardTuck Add Contact");
-	assert.equal(url.searchParams.get("input"), "text");
-	assert.deepEqual(JSON.parse(url.searchParams.get("text") ?? ""), {
-		firstname: "Avery",
-		lastname: "Noëlle",
-		company: "Tidemark; S.example=injected",
-		email: "avery+office@tidemark.example",
-		phone: "+16045550142",
-	});
+test("the iPhone preview and file download deliver the same complete vCard", async () => {
+	const url = "https://cardtuck.example/api/contacts/23/contact.vcf";
+	const preview = vCardResponse(new Request(url), contact);
+	const download = vCardResponse(new Request(`${url}?download=1`), contact);
+	assert.equal(preview.headers.get("Content-Type"), "text/vcard; charset=utf-8");
+	assert.equal(download.headers.get("Content-Type"), "application/octet-stream");
+	for (const response of [preview, download]) {
+		assert.equal(response.headers.get("Cache-Control"), "private, no-store");
+		assert.match(response.headers.get("Content-Disposition") ?? "", /filename\*=UTF-8''Avery%20%26%20No%C3%ABlle\.vcf/);
+	}
+	const fields = await preview.text();
+	assert.equal(await download.text(), fields);
+	assert.match(fields, /TITLE:Design Director\r\n/);
+	assert.match(fields, /URL:https:\/\/tidemark\.example\r\n/);
+	assert.match(fields, /ADR:;;1 Main Street;;;;\r\n/);
 });
 
 test("Android encodes the full contact as one extra for the named helper app", () => {
-	const url = contactHandoffUrl("android", contact);
+	const url = androidContactHandoffUrl(contact);
 	assert.ok(url);
 	const [scheme, intent, payload, end] = url.split(/;S\.payload=|;end$|#Intent;/);
 	assert.equal(scheme, "intent://add");
@@ -58,5 +61,5 @@ test("Android encodes the full contact as one extra for the named helper app", (
 });
 
 test("large payloads leave the vCard fallback available", () => {
-	assert.equal(contactHandoffUrl("android", { ...contact, address: "😀".repeat(2500) }), null);
+	assert.equal(androidContactHandoffUrl({ ...contact, address: "😀".repeat(2500) }), null);
 });
