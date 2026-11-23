@@ -27,10 +27,10 @@ jobs:
         shell: bash
         run: |
           phone="$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k,v in reversed(list(d.items())) if "iOS-26-" in k for x in v if x["name"].startswith("iPhone") and x["isAvailable"]))')"
-          npx --yes --package=tsx@4.23.13 tsx mobile/iphone-qa/serve-preview.cjs > "$RUNNER_TEMP/contact-http.log" 2>&1 &
+          node --experimental-strip-types mobile/iphone-qa/serve-preview.cjs > "$RUNNER_TEMP/contact-http.log" 2>&1 &
+          curl --retry 3 --retry-connrefused --fail --silent http://127.0.0.1:8086/ >/dev/null || { cat "$RUNNER_TEMP/contact-http.log"; exit 1; }
           xcrun simctl boot "$phone"
           xcrun simctl bootstatus "$phone" -b
-          curl --retry 4 --retry-connrefused --fail --silent http://127.0.0.1:8086/ >/dev/null || { cat "$RUNNER_TEMP/contact-http.log"; exit 1; }
           cd mobile/iphone-qa
           xcodebuild test -project CardTuckPhoneQA.xcodeproj -scheme CardTuckPhoneQA \
             -destination "platform=iOS Simulator,id=$phone,arch=$(uname -m)" \

@@ -1,4 +1,14 @@
 const http = require('node:http');
+const { registerHooks } = require('node:module');
+
+registerHooks({
+  resolve(specifier, context, nextResolve) {
+    if (specifier === './vcf' && context.parentURL.endsWith('/vcf-response.ts')) {
+      return nextResolve('./vcf.ts', context);
+    }
+    return nextResolve(specifier, context);
+  },
+});
 const { vCardResponse } = require('../../src/lib/vcf-response.ts');
 
 const sample = {
