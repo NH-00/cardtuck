@@ -67,6 +67,7 @@
     "removePhotosHelp": "Le contact et ses informations resteront dans CardTuck."
   },
   "transfer": {
+    "iphoneDownload": "Dans Safari, appuyez longuement sur Télécharger vCard, puis choisissez Télécharger le fichier lié.",
     "add": "Ajouter aux contacts",
     "android": "Ouvre l’application CardTuck pour Android.",
     "setup": "Configuration initiale",

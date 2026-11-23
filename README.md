@@ -85,7 +85,7 @@ Open a saved person in CardTuck and tap **Add to Contacts**. The phone opens a c
 ## Import a vCard
 
 1. In CardTuck, open **Contacts**. Find the person and open their saved entry. After a scan, **View contact** opens that same entry.
-2. Click **Download vCard**. This downloads a `.vcf` file for that person. Repeat for each person you want to add.
+2. Use **Download vCard** to save a `.vcf` file for that person. On iPhone, touch and hold the link in Safari and choose **Download Linked File**.
 3. Import it in your contacts app:
    - **iPhone:** Tap the `.vcf` attachment in Mail or Messages, then review and add the person. [Apple’s iPhone instructions](https://support.apple.com/en-gb/guide/iphone/iph356499f31/ios)
    - **Mac:** Open Contacts and choose **File → Import**. Select the file, then review and add it. [Apple’s Mac instructions](https://support.apple.com/guide/contacts/import-contacts-adrbk1457/mac)

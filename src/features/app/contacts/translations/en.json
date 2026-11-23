@@ -68,6 +68,7 @@
   },
   "transfer": {
     "add": "Add to Contacts",
+    "iphoneDownload": "In Safari, touch and hold Download vCard, then choose Download Linked File.",
     "android": "Opens the CardTuck Android helper.",
     "setup": "One-time setup",
     "opened": "Still here? Check setup or download the vCard.",

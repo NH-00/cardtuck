@@ -68,11 +68,17 @@ export function ContactTransfer({ contact }: { contact: ContactData & { id: numb
 			<a
 				href={`${vcardUrl}?download=1`}
 				download
+				aria-describedby={platform === "ios" ? `vcard-download-${contact.id}` : undefined}
 				className={buttonVariants({ variant: "outline", className: "min-h-11 w-full" })}
 			>
 				<Download />
 				{card("download_vcf")}
 			</a>
+			{platform === "ios" && (
+				<p id={`vcard-download-${contact.id}`} className="text-xs text-muted-foreground sm:col-span-2">
+					{t("iphoneDownload")}
+				</p>
+			)}
 		</>
 	);
 }

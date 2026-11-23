@@ -39,8 +39,9 @@ export default function CompatibilityPage() {
 					<li>Review the details and save.</li>
 				</ol>
 				<p>
-					To keep a copy of the file or import it somewhere else, tap <strong>Download vCard</strong>. You can also open
-					a .vcf attachment in Mail or Messages.
+					To keep a copy on your iPhone, touch and hold <strong>Download vCard</strong>, then choose{" "}
+					<strong>Download Linked File</strong>. Look for the .vcf in Safari’s Downloads. You can also open a .vcf
+					attachment in Mail or Messages.
 				</p>
 				<a href="https://support.apple.com/en-gb/guide/iphone/iph356499f31/ios">Apple’s guide for iPhone</a>
 				<h3>On Mac</h3>
